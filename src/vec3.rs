@@ -24,6 +24,10 @@ impl Vec3 {
     pub fn length_squared(&self) -> f64 {
         self.x * self.x + self.y * self.y + self.z * self.z
     }
+
+    pub fn unit_vector(&self) -> Self {
+        *self / self.length()
+    }
 }
 
 impl Display for Vec3 {
@@ -93,6 +97,19 @@ impl Neg for Vec3 {
 
 // scalar ops
 
+impl Mul<Vec3> for f64 {
+    type Output = Vec3;
+
+    #[inline]
+    fn mul(self, rhs: Vec3) -> Self::Output {
+        Self::Output {
+            x: self * rhs.x,
+            y: self * rhs.y,
+            z: self * rhs.z,
+        }
+    }
+}
+
 impl Mul<f64> for Vec3 {
     type Output = Vec3;
 
@@ -111,6 +128,19 @@ impl MulAssign<f64> for Vec3 {
         self.x *= rhs;
         self.y *= rhs;
         self.z *= rhs;
+    }
+}
+
+impl Div<Vec3> for f64 {
+    type Output = Vec3;
+
+    #[inline]
+    fn div(self, rhs: Vec3) -> Self::Output {
+        Self::Output {
+            x: self / rhs.x,
+            y: self / rhs.y,
+            z: self / rhs.z,
+        }
     }
 }
 
